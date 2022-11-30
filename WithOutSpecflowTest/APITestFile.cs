@@ -13,6 +13,7 @@ namespace EshopAPITestClassLibrary
     public class APITestFile
     {
         [TestMethod]
+        /*
         public async Task WhenActionIsPOSTAsync()
         {
             var url = "https://localhost:44339/api/catalog-items";
@@ -42,6 +43,26 @@ namespace EshopAPITestClassLibrary
             Console.WriteLine(code);
 
             Assert.AreEqual(201, code);
+        }
+        */
+        public void WhenUserGetAllItemDetails()
+        {
+            //var url = "https://localhost:44339/api/catalog-brands";
+
+            var url = "https://localhost:44339/api/catalog-items";
+            var client = new RestClient(url);
+            var request = new RestRequest(url, Method.Get);
+            var getToken = getTokens();
+            request.AddHeader("Authorization", "Bearer " + getToken);
+            RestResponse response = client.Execute(request);
+            var output = response.Content;
+            var code = (int)response.StatusCode;
+            Console.WriteLine(output);
+            Console.WriteLine(code);
+            //codeStatus = code.ToString();
+            Assert.AreEqual(200, code);
+
+            var Output = response.Content;
         }
 
         private string getTokens()
