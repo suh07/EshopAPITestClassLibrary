@@ -18,9 +18,15 @@ Scenario:GET API Test with input
 Scenario:POST API Authenticate Test
 	When action is POST authenticate user
 
-@POST_API_Authenticate
-Scenario:POST API Delete item Test
-	When User enter the id "41" of an item
+@POST_API_Delete
+Scenario:API Delete item Test
+	When User enter the id "51" of an item
+
+@POST_API_PUT
+Scenario:API PUT item Test
+	When User will update an item details
+
+
 
 
 
