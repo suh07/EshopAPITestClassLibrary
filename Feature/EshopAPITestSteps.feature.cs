@@ -320,50 +320,16 @@ this.ScenarioInitialize(scenarioInfo);
                             "name",
                             "price"});
                 table2.AddRow(new string[] {
-                            "71",
+                            "32",
                             "2",
                             "2",
-                            "Tshirt-oranz",
-                            "Tshirt-redOranz",
+                            "Tshirt-redOrange",
+                            "Tshirt-orange",
                             "250.0"});
 #line 41
  testRunner.When("user enter the item details including id", ((string)(null)), table2, "When ");
 #line hidden
 #line 44
- testRunner.Then("User PUT API response shall be equal to \"200\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
-#line hidden
-            }
-            this.ScenarioCleanup();
-        }
-        
-        [Xunit.SkippableFactAttribute(DisplayName="GET A SPECIFIC ITEM DETAILS")]
-        [Xunit.TraitAttribute("FeatureTitle", "EshopAPITestSteps")]
-        [Xunit.TraitAttribute("Description", "GET A SPECIFIC ITEM DETAILS")]
-        [Xunit.TraitAttribute("Category", "GET_RETRIEVE_A_SPECIFIC-ITEM-DETAILS")]
-        public void GETASPECIFICITEMDETAILS()
-        {
-            string[] tagsOfScenario = new string[] {
-                    "GET_RETRIEVE_A_SPECIFIC-ITEM-DETAILS"};
-            System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("GET A SPECIFIC ITEM DETAILS", null, tagsOfScenario, argumentsOfScenario, featureTags);
-#line 47
-this.ScenarioInitialize(scenarioInfo);
-#line hidden
-            if ((TagHelper.ContainsIgnoreTag(tagsOfScenario) || TagHelper.ContainsIgnoreTag(featureTags)))
-            {
-                testRunner.SkipScenario();
-            }
-            else
-            {
-                this.ScenarioStart();
-#line 48
-    testRunner.Given("User have been autheticated with email \"admin@microsoft.com\" and password \"Pass@w" +
-                        "ord1\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
-#line hidden
-#line 49
- testRunner.When("a user enter the id \"1\" of an item", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
-#line hidden
-#line 50
  testRunner.Then("User PUT API response shall be equal to \"200\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             }
@@ -380,7 +346,7 @@ this.ScenarioInitialize(scenarioInfo);
                     "DELETE_A_SPECIFIC-ITEM"};
             System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("DELETE A SPECIFIC ITEM DETAILS", null, tagsOfScenario, argumentsOfScenario, featureTags);
-#line 53
+#line 47
 this.ScenarioInitialize(scenarioInfo);
 #line hidden
             if ((TagHelper.ContainsIgnoreTag(tagsOfScenario) || TagHelper.ContainsIgnoreTag(featureTags)))
@@ -390,48 +356,14 @@ this.ScenarioInitialize(scenarioInfo);
             else
             {
                 this.ScenarioStart();
-#line 54
+#line 48
     testRunner.Given("User have been autheticated with email \"admin@microsoft.com\" and password \"Pass@w" +
                         "ord1\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line hidden
-#line 55
+#line 49
  testRunner.When("User enter the id \"61\" of an item", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line hidden
-#line 56
- testRunner.Then("User PUT API response shall be equal to \"200\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
-#line hidden
-            }
-            this.ScenarioCleanup();
-        }
-        
-        [Xunit.SkippableFactAttribute(DisplayName="GET ALL ITEMS DETAILS")]
-        [Xunit.TraitAttribute("FeatureTitle", "EshopAPITestSteps")]
-        [Xunit.TraitAttribute("Description", "GET ALL ITEMS DETAILS")]
-        [Xunit.TraitAttribute("Category", "GET_RETRIEVE_ALL_ITEMS-DETAILS")]
-        public void GETALLITEMSDETAILS()
-        {
-            string[] tagsOfScenario = new string[] {
-                    "GET_RETRIEVE_ALL_ITEMS-DETAILS"};
-            System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("GET ALL ITEMS DETAILS", null, tagsOfScenario, argumentsOfScenario, featureTags);
-#line 59
-this.ScenarioInitialize(scenarioInfo);
-#line hidden
-            if ((TagHelper.ContainsIgnoreTag(tagsOfScenario) || TagHelper.ContainsIgnoreTag(featureTags)))
-            {
-                testRunner.SkipScenario();
-            }
-            else
-            {
-                this.ScenarioStart();
-#line 60
-    testRunner.Given("User have been autheticated with email \"admin@microsoft.com\" and password \"Pass@w" +
-                        "ord1\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
-#line hidden
-#line 61
- testRunner.When("user get all items details", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
-#line hidden
-#line 62
+#line 50
  testRunner.Then("User PUT API response shall be equal to \"200\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             }

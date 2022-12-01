@@ -47,6 +47,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Feature\EshopAPITestSteps.feature" />
+    <None Include="Feature\GET_Eshop.feature" />
+    <None Include="Schema\CatalogueItemsSchema.json" />
+    <None Include="Schema\ErrorSchema.json" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.Mvc.Abstractions">
@@ -57,6 +60,9 @@
     </PackageReference>
     <PackageReference Include="Newtonsoft.Json">
       <Version>13.0.1</Version>
+    </PackageReference>
+    <PackageReference Include="Newtonsoft.Json.Schema">
+      <Version>3.0.14</Version>
     </PackageReference>
     <PackageReference Include="RestSharp">
       <Version>108.0.3</Version>
@@ -74,8 +80,6 @@
       <Version>2.4.2</Version>
     </PackageReference>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Models\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

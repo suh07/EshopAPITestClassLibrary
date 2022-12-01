@@ -1,0 +1,53 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "type": "object",
+  "properties": {
+    "catalogItems": {
+      "type": "array",
+      "items": [
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "integer"
+            },
+            "name": {
+              "type": "string",
+              "nullable": "true"
+            },
+            "description": {
+              "type": "string",
+              "nullable": "true"
+            },
+            "price": {
+              "type": "number"
+            },
+            "pictureUri": {
+              "type": "string",
+              "nullable": "true"
+            },
+            "catalogTypeId": {
+              "type": "integer"
+            },
+            "catalogBrandId": {
+              "type": "integer"
+            }
+          },
+          "required": [
+            "id",
+            "price",
+            "catalogTypeId",
+            "catalogBrandId"
+          ]
+        }
+      ]
+    },
+    "pageCount": {
+      "type": "integer"
+    }
+  },
+  "required": [
+    "catalogItems",
+    "pageCount"
+  ]
+}

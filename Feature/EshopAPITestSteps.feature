@@ -39,14 +39,8 @@ Scenario:ADD A SPECIFIC ITEM DETAILS
 Scenario:UPDATE A SPECIFIC ITEM DETAILS
     Given User have been autheticated with email "admin@microsoft.com" and password "Pass@word1"
 	When user enter the item details including id 
-	|  id| catalogBrandId | catalogTypeId | description  | name            | price |
-	|  71| 2              | 2             | Tshirt-oranz | Tshirt-redOranz | 250.0 |
-	Then User PUT API response shall be equal to "200"
-
-@GET_RETRIEVE_A_SPECIFIC-ITEM-DETAILS
-Scenario:GET A SPECIFIC ITEM DETAILS
-    Given User have been autheticated with email "admin@microsoft.com" and password "Pass@word1"
-	When a user enter the id "1" of an item
+	|  id| catalogBrandId | catalogTypeId | description      | name           | price |
+	|  32| 2              | 2             | Tshirt-redOrange | Tshirt-orange  | 250.0 |
 	Then User PUT API response shall be equal to "200"
 
 @DELETE_A_SPECIFIC-ITEM
@@ -55,11 +49,6 @@ Scenario:DELETE A SPECIFIC ITEM DETAILS
 	When User enter the id "61" of an item
 	Then User PUT API response shall be equal to "200"
 
-@GET_RETRIEVE_ALL_ITEMS-DETAILS
-Scenario:GET ALL ITEMS DETAILS
-    Given User have been autheticated with email "admin@microsoft.com" and password "Pass@word1"
-	When user get all items details
-	Then User PUT API response shall be equal to "200"
 
 
 

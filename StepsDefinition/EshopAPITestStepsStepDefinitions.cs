@@ -2,9 +2,13 @@ using Gherkin.Ast;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
+using Newtonsoft.Json.Schema;
 using RestSharp;
 using System;
+using System.Diagnostics;
+using System.IO;
 using System.Linq;
+using System.Runtime.Remoting.Messaging;
 using System.Threading.Tasks;
 using TechTalk.SpecFlow;
 
@@ -14,7 +18,10 @@ namespace EshopAPITestClassLibrary
     public class EshopAPITestStepsStepDefinitions
     {
         static string codeStatus;
+        static string BearerToken;
 
+        //Define stopwatch 
+        Stopwatch stopwatch = new Stopwatch();
 
         [When(@"User add a new item")]
         public async Task WhenUserAddANewItemAsync()
@@ -151,6 +158,7 @@ namespace EshopAPITestClassLibrary
         [Given(@"User have been autheticated with email ""([^""]*)"" and password ""([^""]*)""")]
         public void GivenUserHaveBeenAutheticatedWithEmailAndPassword(string email, string password)
         {
+            stopwatch.Start();
             var url = "https://localhost:44339/api/authenticate";
             var client = new RestClient(url);
             var request = new RestRequest(url, Method.Post);
@@ -169,6 +177,11 @@ namespace EshopAPITestClassLibrary
 
             //verify the status code
             Assert.AreEqual(200, code);
+
+            //get token
+            JObject obj = JObject.Parse(output);
+            BearerToken = obj.GetValue("token").ToString();
+
         }
 
         [When(@"user enter the item details with the following")]
@@ -212,7 +225,7 @@ namespace EshopAPITestClassLibrary
         {
             Assert.AreEqual(ExpectedResult, codeStatus);
         }
-       //-----------------------------------------------------WITH UPDATED GHERKIN POST - UPDATEA SPECIFIC ITEM------------------------------------
+       //-----------------------------------------------------WITH UPDATED GHERKIN POST - UPDATE A SPECIFIC ITEM------------------------------------
 
         [When(@"user enter the item details including id")]
         public void WhenUserEnterTheItemDetailsIncludingId(Table table)
@@ -268,8 +281,8 @@ namespace EshopAPITestClassLibrary
             var client = new RestClient(URL_WithID);
             var request = new RestRequest(URL_WithID, Method.Get);
 
-            var getToken = getTokens();
-            request.AddHeader("Authorization", "Bearer " + getToken);
+           // var getToken = getTokens();
+            request.AddHeader("Authorization", "Bearer " + BearerToken);
 
             RestResponse response = client.Execute(request);
             var output = response.Content;
@@ -280,7 +293,7 @@ namespace EshopAPITestClassLibrary
             codeStatus = code.ToString();
 
             //verfiy HTTP Status code
-            Assert.AreEqual(200, code);
+           // Assert.AreEqual(200, code);
 
             //verify response headers
             string Server = response.Headers.ToList()
@@ -293,11 +306,30 @@ namespace EshopAPITestClassLibrary
             var resource = request.Resource;
             Assert.AreEqual("https://localhost:44339/api/catalog-items/" + ItemID, resource);
 
-            //verify payload
-            /* JObject obj = JObject.Parse(output);
-               string tokenValue = obj.GetValue("token").ToString();
-               Console.WriteLine(tokenValue);
-           */
+            if(codeStatus.Equals("200"))
+            {
+                //validate json payload
+                JSchema jsonSchema = JSchema.Parse(File.ReadAllText("C:\\Users\\P129FA6\\source\\repos\\EshopAPITestClassLibrary\\Schema\\CatalogueItemsSchema.json"));
+                JObject responses = JObject.Parse(output);
+                bool valid = responses.IsValid(jsonSchema);
+                Assert.IsTrue(valid, "Schema not valid");
+            }
+            
+     
+
+
+            //Basic performance sanity test
+            stopwatch.Stop();
+
+            long timeTaken = stopwatch.ElapsedMilliseconds;
+
+            if (timeTaken > 3000 && timeTaken < 9000)
+            {
+                bool IsTimePassed = true;
+                Assert.IsTrue(IsTimePassed);
+            }
+
+
         }
         //----------------------------------WITH UPDATED GHERKIN POST - DELETE A SPECIFIC ITEM BY ID ------------------------------------
 
@@ -310,8 +342,8 @@ namespace EshopAPITestClassLibrary
             var URL_WithID = url + ItemID;
             var client = new RestClient(URL_WithID);
             var request = new RestRequest(URL_WithID, Method.Delete);
-            var getToken = getTokens();
-            request.AddHeader("Authorization", "Bearer " + getToken);
+            //var getToken = getTokens();
+            request.AddHeader("Authorization", "Bearer " + BearerToken);
             RestResponse response = client.Execute(request);
             var output = response.Content;
             var code = (int)response.StatusCode;
@@ -334,11 +366,7 @@ namespace EshopAPITestClassLibrary
             Assert.AreEqual("https://localhost:44339/api/catalog-items/" + ItemID, resource);
 
             //verify payload
-            JObject obj = JObject.Parse(output);
-
-            // string nameValue = obj.GetValue("name").ToString();
-            ///  Console.WriteLine(nameValue);
-            //  Assert.AreEqual("Tshirt-redYellow", nameValue);
+        
 
         }
 
@@ -350,15 +378,43 @@ namespace EshopAPITestClassLibrary
             var url = "https://localhost:44339/api/catalog-items";
             var client = new RestClient(url);
             var request = new RestRequest(url, Method.Get);
-            var getToken = getTokens();
-            request.AddHeader("Authorization", "Bearer " + getToken);
+         
+            request.AddHeader("Authorization", "Bearer " + BearerToken);
             RestResponse response = client.Execute(request);
             var output = response.Content;
             var code = (int)response.StatusCode;
-            Console.WriteLine(output);
-            Console.WriteLine(code);
             codeStatus = code.ToString();
+
+            //verfiy HTTP Status code
             Assert.AreEqual(200, code);
+
+
+            //verify response headers
+            string Server = response.Headers.ToList()
+                                    .Find(x => x.Name == "Server")
+                                    .Value.ToString();
+
+            Assert.AreEqual("Microsoft-IIS/10.0", Server, "Server not matching");
+
+            //validate json payload
+            JSchema jsonSchema = JSchema.Parse(File.ReadAllText("C:\\Users\\P129FA6\\source\\repos\\EshopAPITestClassLibrary\\Schema\\CatalogueItemsSchema.json"));
+            JObject responses = JObject.Parse(output);
+            bool valid = responses.IsValid(jsonSchema);
+           Assert.IsTrue(valid, "Schema not valid");
+
+            //Basic performance sanity test
+            stopwatch.Stop();
+
+            long timeTaken =  stopwatch.ElapsedMilliseconds;
+
+            if(timeTaken > 3000 && timeTaken < 9000)
+                {
+                        bool IsTimePassed = true;
+                        Assert.IsTrue(IsTimePassed);
+                }
+
         }
+
+    
     }
 }
